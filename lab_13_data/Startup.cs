@@ -26,7 +26,7 @@ namespace lab_13_data
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDbContext<SchoolDbContext>(options => {
+            services.AddDbContext<HotelDbContext>(options => {
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
