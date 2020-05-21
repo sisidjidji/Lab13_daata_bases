@@ -9,8 +9,8 @@ using lab_13_data.Data;
 namespace lab_13_data.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    [Migration("20200521084906_AddHotel")]
-    partial class AddHotel
+    [Migration("20200521154012_AddRoomAmenities")]
+    partial class AddRoomAmenities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,7 @@ namespace lab_13_data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -51,6 +52,7 @@ namespace lab_13_data.Migrations
                         .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
@@ -75,7 +77,7 @@ namespace lab_13_data.Migrations
                     b.Property<int>("HotelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomNumber")
+                    b.Property<int>("Number")
                         .HasColumnType("int");
 
                     b.Property<bool>("PetFrindly")
@@ -84,19 +86,19 @@ namespace lab_13_data.Migrations
                     b.Property<decimal>("Rate")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("RoomIdId")
+                    b.Property<int>("RoomId")
                         .HasColumnType("int");
 
-                    b.HasKey("HotelId", "RoomNumber");
+                    b.HasKey("HotelId", "Number");
 
-                    b.HasIndex("RoomIdId");
+                    b.HasIndex("RoomId");
 
                     b.ToTable("HotelRoom");
                 });
 
             modelBuilder.Entity("lab_13_data.Models.Room", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("RoomId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -105,9 +107,10 @@ namespace lab_13_data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("RoomId");
 
                     b.ToTable("Room");
                 });
@@ -135,9 +138,9 @@ namespace lab_13_data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("lab_13_data.Models.Room", "RoomId")
+                    b.HasOne("lab_13_data.Models.Room", "Room")
                         .WithMany()
-                        .HasForeignKey("RoomIdId")
+                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

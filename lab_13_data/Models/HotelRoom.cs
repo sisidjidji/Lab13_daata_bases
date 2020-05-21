@@ -10,6 +10,8 @@ namespace lab_13_data.Models
     {
         public int HotelId { get; set; }
 
+
+
         [Required]
         public Room Room { get; set; }
         public Hotel Hotel { get; set; }
