@@ -41,14 +41,14 @@ namespace lab_13_data.Migrations
                 name: "Room",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    RoomId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     Layout = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Room", x => x.Id);
+                    table.PrimaryKey("PK_Room", x => x.RoomId);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,14 +56,14 @@ namespace lab_13_data.Migrations
                 columns: table => new
                 {
                     HotelId = table.Column<int>(nullable: false),
-                    RoomNumber = table.Column<int>(nullable: false),
-                    RoomIdId = table.Column<int>(nullable: false),
+                    Number = table.Column<int>(nullable: false),
+                    RoomId = table.Column<int>(nullable: false),
                     Rate = table.Column<decimal>(nullable: false),
                     PetFrindly = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_HotelRoom", x => new { x.HotelId, x.RoomNumber });
+                    table.PrimaryKey("PK_HotelRoom", x => new { x.HotelId, x.Number });
                     table.ForeignKey(
                         name: "FK_HotelRoom_Hotels_HotelId",
                         column: x => x.HotelId,
@@ -71,10 +71,10 @@ namespace lab_13_data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_HotelRoom_Room_RoomIdId",
-                        column: x => x.RoomIdId,
+                        name: "FK_HotelRoom_Room_RoomId",
+                        column: x => x.RoomId,
                         principalTable: "Room",
-                        principalColumn: "Id",
+                        principalColumn: "RoomId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -98,14 +98,14 @@ namespace lab_13_data.Migrations
                         name: "FK_RoomAmenities_Room_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Room",
-                        principalColumn: "Id",
+                        principalColumn: "RoomId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_HotelRoom_RoomIdId",
+                name: "IX_HotelRoom_RoomId",
                 table: "HotelRoom",
-                column: "RoomIdId");
+                column: "RoomId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoomAmenities_RoomId",

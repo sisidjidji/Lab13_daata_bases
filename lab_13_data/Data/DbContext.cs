@@ -1,17 +1,13 @@
 ﻿
 using lab_13_data.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace lab_13_data.Data
 {
     public class HotelDbContext : DbContext
     {
-        public HotelDbContext( DbContextOptions options) : base(options)
+        public HotelDbContext(DbContextOptions options) : base(options)
         {
 
         }
@@ -37,7 +33,7 @@ namespace lab_13_data.Data
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Room> Room { get; set; }
         public DbSet<HotelRoom> HotelRoom { get; set; }
-        public DbSet<Amenities> Amenities{ get; set; }
+        public DbSet<Amenities> Amenities { get; set; }
         public DbSet<RoomAmenities> RoomAmenities { get; set; }
     }
 }
