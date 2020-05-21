@@ -11,9 +11,21 @@ namespace lab_13_data.Models
         public int RoomId { get; set; }
         [Required]
         public string Name { get; set; }
-        public int Layout { get; set; }
+        public RoomLayout Layout { get; set; }
+
+
+
+
+    }
+
+    public enum RoomLayout
+    {
+        Studio,
+        TwoBedroom,
+    }
+}
         
 
       
-    }
-}
+    
+
