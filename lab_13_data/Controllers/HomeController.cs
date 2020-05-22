@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace lab_13_data
+namespace lab_13_data.Controllers
 {
-    public class HomeController: Controller
+    public class HomeController : Controller
     {
        public IActionResult Index()
         {
