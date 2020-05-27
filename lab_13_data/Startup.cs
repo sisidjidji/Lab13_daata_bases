@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using lab_13_data.Data.Repositories;
 
 namespace lab_13_data
 {
@@ -30,6 +31,8 @@ namespace lab_13_data
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+
+            services.AddTransient<IHotelRepository, DatabaseRepository>;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

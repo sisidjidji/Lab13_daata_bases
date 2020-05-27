@@ -27,7 +27,7 @@ namespace lab_13_data.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
         {
-            return Ok(hotelRepository.GetAllHotels());
+            return Ok(await hotelRepository.GetAllHotels());
             // await _context.Hotel.ToListAsync();
         }
 
@@ -35,7 +35,7 @@ namespace lab_13_data.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Hotel>> GetHotel(int id)
         {
-            // var Hotel = await _context.student.FindAsync(id)
+            // var hotel = await _context.Hotel.FindAsync(id)
             var hotel = await hotelRepository.GetOneHotel(id);
 
             if (hotel == null)
