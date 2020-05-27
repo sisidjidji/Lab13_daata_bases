@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using lab_13_data.Data;
 using lab_13_data.Models;
+using lab_13_data.Data.Repositories;
 
 namespace lab_13_data.Controllers
 {
@@ -14,25 +15,28 @@ namespace lab_13_data.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
-        private readonly HotelDbContext _context;
+        // private readonly HotelDbContext _context;
+        IRoomRepository roomRepository;
 
-        public RoomsController(HotelDbContext context)
+        public RoomsController(IRoomRepository roomRepository)
         {
-            _context = context;
+            this.roomRepository = roomRepository;
         }
 
         // GET: api/Rooms
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
         {
-            return await _context.Room.ToListAsync();
+            return Ok(await roomRepository.GetAllRooms());
+           // return await _context.Room.ToListAsync();
         }
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            var room = await _context.Room.FindAsync(id);
+            // var room = await _context.Room.FindAsync(id);
+            var room = await roomRepository.GetOneRoom(id);
 
             if (room == null)
             {
@@ -53,25 +57,26 @@ namespace lab_13_data.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(room).State = EntityState.Modified;
+            //_context.Entry(room).State = EntityState.Modified;
+            await roomRepository.SaveNewRoom(room);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RoomExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!RoomExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
+           return NoContent();
         }
 
         // POST: api/Rooms
@@ -80,8 +85,10 @@ namespace lab_13_data.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
-            _context.Room.Add(room);
-            await _context.SaveChangesAsync();
+            //_context.Room.Add(room);
+            //await _context.SaveChangesAsync();
+
+            await roomRepository.UpdateRoom(room);
 
             return CreatedAtAction("GetRoom", new { id = room.RoomId }, room);
         }
@@ -90,21 +97,24 @@ namespace lab_13_data.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Room>> DeleteRoom(int id)
         {
-            var room = await _context.Room.FindAsync(id);
+            // var room = await _context.Room.FindAsync(id);
+            var room= await roomRepository.DeleteRoom(id);
+
             if (room == null)
             {
                 return NotFound();
             }
 
-            _context.Room.Remove(room);
-            await _context.SaveChangesAsync();
+            //_context.Room.Remove(room);
+            //await _context.SaveChangesAsync();
 
             return room;
         }
 
         private bool RoomExists(int id)
         {
-            return _context.Room.Any(e => e.RoomId == id);
+            //return _context.Room.Any(e => e.RoomId == id);
+            return false;
         }
     }
 }
