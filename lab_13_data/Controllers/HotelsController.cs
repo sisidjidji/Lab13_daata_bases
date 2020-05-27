@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using lab_13_data.Data;
 using lab_13_data.Models;
+using lab_13_data.Data.Repositories;
 
 namespace lab_13_data.Controllers
 {
@@ -14,25 +15,28 @@ namespace lab_13_data.Controllers
     [ApiController]
     public class HotelsController : ControllerBase
     {
-        private readonly HotelDbContext _context;
+   
 
-        public HotelsController(HotelDbContext context)
+        IHotelRepository hotelRepository;
+        public HotelsController(IHotelRepository hotelRepository)
         {
-            _context = context;
+            this.hotelRepository = hotelRepository;
         }
 
         // GET: api/Hotels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
         {
-            return await _context.Hotels.ToListAsync();
+            return Ok(hotelRepository.GetAllHotels());
+            // await _context.Hotel.ToListAsync();
         }
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Hotel>> GetHotel(int id)
         {
-            var hotel = await _context.Hotels.FindAsync(id);
+            // var Hotel = await _context.student.FindAsync(id)
+            var hotel = await hotelRepository.GetOneHotel(id);
 
             if (hotel == null)
             {
@@ -53,23 +57,30 @@ namespace lab_13_data.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(hotel).State = EntityState.Modified;
+            bool didUpdate = await hotelRepository.UpdateHotel(hotel);
 
-            try
+            if (!didUpdate)
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
+            //_context.Entry(hotel).State = EntityState.Modified;
+
+            //try
+            //{
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    if (!HotelExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
 
             return NoContent();
         }
@@ -80,8 +91,10 @@ namespace lab_13_data.Controllers
         [HttpPost]
         public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
-            _context.Hotels.Add(hotel);
-            await _context.SaveChangesAsync();
+
+            await hotelRepository.SaveNewHotel(hotel);
+           // _context.Hotels.Add(hotel);
+            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
         }
@@ -90,21 +103,23 @@ namespace lab_13_data.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Hotel>> DeleteHotel(int id)
         {
-            var hotel = await _context.Hotels.FindAsync(id);
+            var hotel = await hotelRepository.DeleteHotel(id);
+           // var hotel = await _context.Hotels.FindAsync(id);
             if (hotel == null)
             {
                 return NotFound();
             }
 
-            _context.Hotels.Remove(hotel);
-            await _context.SaveChangesAsync();
+            //_context.Hotels.Remove(hotel);
+           // await _context.SaveChangesAsync();
 
             return hotel;
         }
 
         private bool HotelExists(int id)
         {
-            return _context.Hotels.Any(e => e.Id == id);
+            return false;
+            //return _context.Hotels.Any(e => e.Id == id);
         }
     }
 }

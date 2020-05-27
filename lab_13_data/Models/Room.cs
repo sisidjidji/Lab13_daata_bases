@@ -22,6 +22,7 @@ namespace lab_13_data.Models
     {
         Studio,
         TwoBedroom,
+        threeBedroom
     }
 }
         
