@@ -11,7 +11,7 @@ namespace lab_13_data.Data.Repositories
         Task<IEnumerable<Amenities>> GetAllAmenities();
         Task<Amenities> GetOneAmenitie(long id);
 
-        Task<bool> UpdateAmenitie(Amenities amenities);
+        Task<bool> UpdateAmenitie(long id ,Amenities amenities);
         Task<Amenities> SaveNewAmenitie(Amenities amenities);
         Task<Amenities> DeleteAmenitie(long id);
 

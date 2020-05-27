@@ -61,7 +61,7 @@ namespace lab_13_data.Controllers
                 return BadRequest();
             }
 
-            bool didUpdate = await amenitiesRepository.UpdateAmenitie(amenities);
+            bool didUpdate = await amenitiesRepository.UpdateAmenitie(id,amenities);
 
             if (!didUpdate)
             {

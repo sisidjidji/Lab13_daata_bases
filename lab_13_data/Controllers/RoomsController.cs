@@ -58,7 +58,7 @@ namespace lab_13_data.Controllers
             }
 
             //_context.Entry(room).State = EntityState.Modified;
-            await roomRepository.SaveNewRoom(room);
+            await roomRepository.UpdateRoom(id,room);
 
         //    try
         //    {
@@ -88,7 +88,7 @@ namespace lab_13_data.Controllers
             //_context.Room.Add(room);
             //await _context.SaveChangesAsync();
 
-            await roomRepository.UpdateRoom(room);
+            await roomRepository.SaveNewRoom(room);
 
             return CreatedAtAction("GetRoom", new { id = room.RoomId }, room);
         }

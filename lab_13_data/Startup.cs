@@ -32,7 +32,8 @@ namespace lab_13_data
                 options.UseSqlServer(connectionString);
             });
 
-            services.AddTransient<IHotelRepository, DatabaseRepository>;
+            services.AddTransient<IHotelRepository, DatabaseRepository>();
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

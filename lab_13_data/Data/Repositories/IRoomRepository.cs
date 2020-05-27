@@ -11,7 +11,7 @@ namespace lab_13_data.Data.Repositories
         Task<IEnumerable<Room>> GetAllRooms();
         Task<Room> GetOneRoom(long id);
 
-        Task<bool> UpdateRoom(Room room);
+        Task<bool> UpdateRoom(long id ,Room room);
         Task<Room> SaveNewRoom(Room room);
         Task<Room> DeleteRoom(long id);
     }

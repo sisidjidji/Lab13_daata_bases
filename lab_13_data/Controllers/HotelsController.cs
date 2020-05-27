@@ -28,14 +28,14 @@ namespace lab_13_data.Controllers
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
         {
             return Ok(await hotelRepository.GetAllHotels());
-            // await _context.Hotel.ToListAsync();
+        
         }
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Hotel>> GetHotel(int id)
         {
-            // var hotel = await _context.Hotel.FindAsync(id)
+          
             var hotel = await hotelRepository.GetOneHotel(id);
 
             if (hotel == null)
@@ -57,30 +57,14 @@ namespace lab_13_data.Controllers
                 return BadRequest();
             }
 
-            bool didUpdate = await hotelRepository.UpdateHotel(hotel);
+            bool didUpdate = await hotelRepository.UpdateHotel(id,hotel);
 
             if (!didUpdate)
             {
                 return NotFound();
             }
 
-            //_context.Entry(hotel).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!HotelExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+            
 
             return NoContent();
         }
@@ -93,8 +77,7 @@ namespace lab_13_data.Controllers
         {
 
             await hotelRepository.SaveNewHotel(hotel);
-           // _context.Hotels.Add(hotel);
-            //await _context.SaveChangesAsync();
+         
 
             return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
         }
@@ -104,22 +87,15 @@ namespace lab_13_data.Controllers
         public async Task<ActionResult<Hotel>> DeleteHotel(int id)
         {
             var hotel = await hotelRepository.DeleteHotel(id);
-           // var hotel = await _context.Hotels.FindAsync(id);
+           
             if (hotel == null)
             {
                 return NotFound();
             }
 
-            //_context.Hotels.Remove(hotel);
-           // await _context.SaveChangesAsync();
-
             return hotel;
         }
 
-        private bool HotelExists(int id)
-        {
-            return false;
-            //return _context.Hotels.Any(e => e.Id == id);
-        }
+        
     }
 }
