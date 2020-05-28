@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 namespace lab_13_data.Data.Repositories
 {
-    public class DatabaseRepository : IHotelRepository
+    public class HotelDatabaseRepository : IHotelRepository
     {
         private readonly HotelDbContext _context;
 
-        public DatabaseRepository(HotelDbContext context)
+        public HotelDatabaseRepository(HotelDbContext context)
         {
             _context = context;
         }
         public async Task<Hotel> DeleteHotel(long id)
         {
-             return  await _context.Hotels.FindAsync(id);
+            var hotel = await _context.Hotels.FindAsync(id);
+            _context.Hotels.Remove(hotel);
+
+            return hotel;
         }
 
         public async Task<IEnumerable<Hotel>> GetAllHotels()

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace lab_13_data.Models.DTO_s
+namespace lab_13_data.Data.Repositories
 {
-    public class RoomAmenitiesDTO
+    public class RoomDatabaseRepository
     {
     }
 }
