@@ -15,7 +15,7 @@ namespace lab_13_data.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
-        // private readonly HotelDbContext _context;
+        
         IRoomRepository roomRepository;
 
         public RoomsController(IRoomRepository roomRepository)
@@ -28,14 +28,14 @@ namespace lab_13_data.Controllers
         public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
         {
             return Ok(await roomRepository.GetAllRooms());
-           // return await _context.Room.ToListAsync();
+          
         }
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Room>> GetRoom(int id)
         {
-            // var room = await _context.Room.FindAsync(id);
+            
             var room = await roomRepository.GetOneRoom(id);
 
             if (room == null)
@@ -85,9 +85,6 @@ namespace lab_13_data.Controllers
         [HttpPost]
         public async Task<ActionResult<Room>> PostRoom(Room room)
         {
-            //_context.Room.Add(room);
-            //await _context.SaveChangesAsync();
-
             await roomRepository.SaveNewRoom(room);
 
             return CreatedAtAction("GetRoom", new { id = room.RoomId }, room);
@@ -97,7 +94,7 @@ namespace lab_13_data.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Room>> DeleteRoom(int id)
         {
-            // var room = await _context.Room.FindAsync(id);
+            
             var room= await roomRepository.DeleteRoom(id);
 
             if (room == null)
@@ -105,8 +102,7 @@ namespace lab_13_data.Controllers
                 return NotFound();
             }
 
-            //_context.Room.Remove(room);
-            //await _context.SaveChangesAsync();
+            
 
             return room;
         }
