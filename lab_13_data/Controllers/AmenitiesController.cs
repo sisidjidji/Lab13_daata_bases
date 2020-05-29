@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using lab_13_data.Data;
 using lab_13_data.Models;
 using lab_13_data.Data.Repositories;
+using lab_13_data.Models.DTO_s;
 
 namespace lab_13_data.Controllers
 {
@@ -26,7 +27,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Amenities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Amenities>>> GetAmenities()
+        public async Task<ActionResult<IEnumerable<AmenitiesDTO>>> GetAmenities()
         {
             
             return Ok( await amenitiesRepository.GetAllAmenities());
@@ -34,7 +35,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Amenities>> GetAmenities(int id)
+        public async Task<ActionResult<AmenitiesDTO>> GetAmenities(int id)
         {
          
             var amenities = await amenitiesRepository.GetOneAmenitie(id);
@@ -78,7 +79,7 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Amenities>> PostAmenities(Amenities amenities)
+        public async Task<ActionResult<AmenitiesDTO>> PostAmenities(Amenities amenities)
         {
            
 
@@ -89,7 +90,7 @@ namespace lab_13_data.Controllers
 
         // DELETE: api/Amenities/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Amenities>> DeleteAmenities(int id)
+        public async Task<ActionResult<AmenitiesDTO>> DeleteAmenities(int id)
         {
             
 

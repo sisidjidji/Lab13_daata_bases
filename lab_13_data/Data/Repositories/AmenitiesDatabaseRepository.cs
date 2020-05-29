@@ -1,4 +1,5 @@
 ﻿using lab_13_data.Models;
+using lab_13_data.Models.DTO_s;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,25 +17,45 @@ namespace lab_13_data.Data.Repositories
             _context = context;
         }
 
-        public async Task<Amenities> DeleteAmenitie(long id)
+        public async Task<AmenitiesDTO> DeleteAmenitie(long id)
         {
-             var amenities = await _context.Amenities.FindAsync(id);
-            _context.Amenities.Remove(amenities);
+            var amenitie = await _context.Amenities.FindAsync(id);
+
+
+            if (amenitie == null)
+            {
+                return null;
+            }
+
+            var amenitieToReturn = await GetOneAmenitie(id);
+
+            _context.Amenities.Remove(amenitie);
+            await _context.SaveChangesAsync();
+
+            return amenitieToReturn;
+        }
+
+        public async Task<IEnumerable<AmenitiesDTO>> GetAllAmenities()
+        {
+            var amenities = await _context.Amenities
+
+                .Select(amenities => new AmenitiesDTO
+                {
+                    Id = amenities.Id,
+                    Name = amenities.Name,
+
+                }).ToListAsync();
 
             return amenities;
+
         }
 
-        public async Task<IEnumerable<Amenities>> GetAllAmenities()
+        public async Task<AmenitiesDTO> GetOneAmenitie(long id)
         {
-            return  await _context.Amenities.ToListAsync();
+            
         }
 
-        public async Task<Amenities> GetOneAmenitie(long id)
-        {
-            return await _context.Amenities.FindAsync(id);
-        }
-
-        public async Task<Amenities> SaveNewAmenitie(Amenities amenities)
+        public async Task<AmenitiesDTO> SaveNewAmenitie(Amenities amenities)
         {
             _context.Amenities.Add(amenities);
             await _context.SaveChangesAsync();
