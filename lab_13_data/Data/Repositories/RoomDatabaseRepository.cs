@@ -39,7 +39,7 @@ namespace lab_13_data.Data.Repositories
                     ID = room.Id,
                     Name = room.RoomName,
                     Layout = room.Layout.ToString(),
-                    Amenities = room.Amenities
+                    AmenitiesList = room.Amenities
                     .Select(amenitie => new AmenitiesDTO
                     {
                         Id = amenitie.Id,
@@ -59,11 +59,13 @@ namespace lab_13_data.Data.Repositories
                     ID = room.Id,
                     Name = room.RoomName,
                     Layout = room.Layout.ToString(),
-                    Amenities = room.Amenities
+
+                    AmenitiesList = room.Amenities
                     .Select(amenitie => new AmenitiesDTO
                     {
                         Id = amenitie.Id,
                         Name = amenitie.Name
+                    
                     }).ToList()
 
                 }).FirstOrDefaultAsync(room => room.ID == id);

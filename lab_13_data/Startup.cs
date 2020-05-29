@@ -33,7 +33,9 @@ namespace lab_13_data
             });
 
             services.AddTransient<IHotelRepository, HotelDatabaseRepository>();
-        
+             services.AddTransient<IRoomRepository, RoomDatabaseRepository>();
+             services.AddTransient<IAmenitiesRepository, AmenitiesDatabaseRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

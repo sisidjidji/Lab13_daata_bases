@@ -9,7 +9,7 @@ namespace lab_13_data.Models
     public class HotelRoom
     {
         public int HotelId { get; set; }
-
+        public int RoomID { get; set; }
 
 
         [Required]
