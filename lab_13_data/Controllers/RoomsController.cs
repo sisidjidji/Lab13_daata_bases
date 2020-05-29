@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using lab_13_data.Data;
 using lab_13_data.Models;
 using lab_13_data.Data.Repositories;
+using lab_13_data.Models.DTO_s;
 
 namespace lab_13_data.Controllers
 {
@@ -25,7 +26,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Rooms>>> GetRoom()
+        public async Task<ActionResult<IEnumerable<RoomDTO>>> GetRoom()
         {
             return Ok(await roomRepository.GetAllRooms());
           
@@ -33,7 +34,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Rooms>> GetRoom(int id)
+        public async Task<ActionResult<RoomDTO>> GetRoom(int id)
         {
             
             var room = await roomRepository.GetOneRoom(id);
@@ -92,7 +93,7 @@ namespace lab_13_data.Controllers
 
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Rooms>> DeleteRoom(int id)
+        public async Task<ActionResult<RoomDTO>> DeleteRoom(int id)
         {
             
             var room= await roomRepository.DeleteRoom(id);

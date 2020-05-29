@@ -1,4 +1,5 @@
 ﻿using lab_13_data.Models;
+using lab_13_data.Models.DTO_s;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,31 +16,68 @@ namespace lab_13_data.Data.Repositories
             _context = context;
         }
 
-        public async Task<Rooms> DeleteRoom(long id)
-        {
-             var room = await _context.Rooms.FindAsync(id);
+        public async Task<RoomDTO> DeleteRoom(long id)
+        { 
+            var room = await _context.Rooms.FindAsync(id);
+            if (room == null)
+            {
+                return null;
+            }
+            var roomToRemove = await GetOneRoom(id);
+
             _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
+
+            return roomToRemove;
+        }
+
+        public async Task<IEnumerable<RoomDTO>> GetAllRooms()
+        {
+            var room = await _context.Rooms
+                .Select(room => new RoomDTO
+                {
+                    ID = room.Id,
+                    Name = room.RoomName,
+                    Layout = room.Layout.ToString(),
+                    Amenities = room.Amenities
+                    .Select(amenitie => new AmenitiesDTO
+                    {
+                        Id = amenitie.Id,
+                        Name = amenitie.Name
+                    }).ToList()
+
+                }).ToListAsync();
+
             return room;
         }
 
-        public async Task<IEnumerable<Rooms>> GetAllRooms()
+        public async Task<RoomDTO> GetOneRoom(long id)
         {
-             return await _context.Rooms.ToListAsync();
+            var room = await _context.Rooms
+                .Select(room => new RoomDTO
+                {
+                    ID = room.Id,
+                    Name = room.RoomName,
+                    Layout = room.Layout.ToString(),
+                    Amenities = room.Amenities
+                    .Select(amenitie => new AmenitiesDTO
+                    {
+                        Id = amenitie.Id,
+                        Name = amenitie.Name
+                    }).ToList()
+
+                }).FirstOrDefaultAsync(room => room.ID == id);
+
+            return room;
+
         }
 
-        public async Task<Rooms> GetOneRoom(long id)
-        {
-            return await _context.Rooms.FindAsync(id);
-            
-        }
-
-        public async  Task<Rooms> SaveNewRoom(Rooms room)
+        public async  Task<RoomDTO> SaveNewRoom(Rooms room)
         {
             _context.Rooms.Add(room);
             await _context.SaveChangesAsync();
+            return await GetOneRoom(room.Id);
 
-            return room;
         }
 
         public async Task<bool> UpdateRoom(long id, Rooms room)
