@@ -14,7 +14,7 @@ namespace lab_13_data.Models
 
         [Required]
         public Rooms Room { get; set; }
-        public Hotels Hotel { get; set; }
+        public HotelsDTO Hotel { get; set; }
         public decimal Rate { get; set; }
         public bool PetFrindly { get; set; }
         public int Number { get; set; }

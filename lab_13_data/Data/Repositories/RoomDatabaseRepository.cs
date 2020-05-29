@@ -65,7 +65,7 @@ namespace lab_13_data.Data.Repositories
         }
         private bool RoomExists(long id)
         {
-            return _context.Rooms.Any(e => e.RoomId == id);
+            return _context.Rooms.Any(e => e.Id == id);
             
         }
     }

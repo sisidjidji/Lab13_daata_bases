@@ -52,7 +52,7 @@ namespace lab_13_data.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRoom(int id, Rooms room)
         {
-            if (id != room.RoomId)
+            if (id != room.Id)
             {
                 return BadRequest();
             }
@@ -87,7 +87,7 @@ namespace lab_13_data.Controllers
         {
             await roomRepository.SaveNewRoom(room);
 
-            return CreatedAtAction("GetRoom", new { id = room.RoomId }, room);
+            return CreatedAtAction("GetRoom", new { id = room.Id }, room);
         }
 
         // DELETE: api/Rooms/5

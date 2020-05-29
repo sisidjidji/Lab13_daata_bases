@@ -12,8 +12,8 @@ namespace lab_13_data.Data.Repositories
         Task<IEnumerable<HotelDTO>> GetAllHotels();
         Task<HotelDTO> GetOneHotel(long id);
 
-        Task<bool> UpdateHotel(long id ,Hotels hotel);
-        Task<HotelDTO> SaveNewHotel(Hotels hotel);
+        Task<bool> UpdateHotel(long id ,HotelsDTO hotel);
+        Task<HotelDTO> SaveNewHotel(HotelsDTO hotel);
         Task<HotelDTO> DeleteHotel(long id);
 
 

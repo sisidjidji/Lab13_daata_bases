@@ -36,7 +36,7 @@ namespace lab_13_data.Data
         }
         
         public DbSet<Rooms> Rooms { get; set; }
-        public DbSet<Hotels> Hotels { get; set; }
+        public DbSet<HotelsDTO> Hotels { get; set; }
         public DbSet<HotelRoom> HotelRoom { get; set; }
         public DbSet<Amenities> Amenities{ get; set; }
         public DbSet<RoomAmenities> RoomAmenities { get; set; }

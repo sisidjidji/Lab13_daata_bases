@@ -96,7 +96,7 @@ namespace lab_13_data.Data.Repositories
             return hotel;
         }
 
-        public async  Task<HotelDTO> SaveNewHotel(Hotels hotel)
+        public async  Task<HotelDTO> SaveNewHotel(HotelsDTO hotel)
         {
             _context.Hotels.Add(hotel);
             await _context.SaveChangesAsync();
@@ -127,7 +127,7 @@ namespace lab_13_data.Data.Repositories
             }
         }
 
-        public Task<bool> UpdateHotel(long id, Hotels hotel)
+        public Task<bool> UpdateHotel(long id, HotelsDTO hotel)
         {
             throw new NotImplementedException();
         }
