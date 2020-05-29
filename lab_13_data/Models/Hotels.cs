@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace lab_13_data.Models
 {
-    public class HotelsDTO
+    public class Hotels
     {
         public int Id { get; set; }
         [Required]

@@ -26,7 +26,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Hotels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HotelsDTO>>> GetHotels()
+        public async Task<ActionResult<IEnumerable<HotelDTO>>> GetHotels()
         {
             return Ok(await hotelRepository.GetAllHotels());
         
@@ -51,7 +51,7 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(long id, HotelsDTO hotel)
+        public async Task<IActionResult> PutHotel(long id, Hotels hotel)
         {
             if (id != hotel.Id)
             {
@@ -74,13 +74,13 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<HotelDTO>> PostHotel(HotelsDTO hotel)
+        public async Task<ActionResult<HotelDTO>> PostHotel(Hotels hotel)
         {
 
             await hotelRepository.SaveNewHotel(hotel);
          
 
-            return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
+            return CreatedAtAction("GetHotel", new { id = hotel.Id}, hotel);
         }
 
         // DELETE: api/Hotels/5

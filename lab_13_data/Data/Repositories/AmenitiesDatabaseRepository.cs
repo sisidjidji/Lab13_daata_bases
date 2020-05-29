@@ -52,15 +52,25 @@ namespace lab_13_data.Data.Repositories
 
         public async Task<AmenitiesDTO> GetOneAmenitie(long id)
         {
-            
+            var amenities = await _context.Amenities
+            .Select(amenities => new AmenitiesDTO
+              {
+                  Id = amenities.Id,
+                  Name = amenities.Name,
+
+              }).FirstOrDefaultAsync(amenitie => amenitie.Id == id);
+
+            return amenities;
         }
 
         public async Task<AmenitiesDTO> SaveNewAmenitie(Amenities amenities)
         {
-            _context.Amenities.Add(amenities);
+             _context.Amenities.Add(amenities);
+
             await _context.SaveChangesAsync();
 
-            return amenities;
+            return await GetOneAmenitie(amenities.Id); 
+
         }
 
         public async Task<bool> UpdateAmenitie(long id, Amenities amenities)
