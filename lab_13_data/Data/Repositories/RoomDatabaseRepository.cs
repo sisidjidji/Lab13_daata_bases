@@ -15,34 +15,34 @@ namespace lab_13_data.Data.Repositories
             _context = context;
         }
 
-        public async Task<Room> DeleteRoom(long id)
+        public async Task<Rooms> DeleteRoom(long id)
         {
-             var room = await _context.Room.FindAsync(id);
-            _context.Room.Remove(room);
+             var room = await _context.Rooms.FindAsync(id);
+            _context.Rooms.Remove(room);
             await _context.SaveChangesAsync();
             return room;
         }
 
-        public async Task<IEnumerable<Room>> GetAllRooms()
+        public async Task<IEnumerable<Rooms>> GetAllRooms()
         {
-             return await _context.Room.ToListAsync();
+             return await _context.Rooms.ToListAsync();
         }
 
-        public async Task<Room> GetOneRoom(long id)
+        public async Task<Rooms> GetOneRoom(long id)
         {
-            return await _context.Room.FindAsync(id);
+            return await _context.Rooms.FindAsync(id);
             
         }
 
-        public async  Task<Room> SaveNewRoom(Room room)
+        public async  Task<Rooms> SaveNewRoom(Rooms room)
         {
-            _context.Room.Add(room);
+            _context.Rooms.Add(room);
             await _context.SaveChangesAsync();
 
             return room;
         }
 
-        public async Task<bool> UpdateRoom(long id, Room room)
+        public async Task<bool> UpdateRoom(long id, Rooms room)
         {
             _context.Entry(room).State = EntityState.Modified;
 
@@ -65,7 +65,7 @@ namespace lab_13_data.Data.Repositories
         }
         private bool RoomExists(long id)
         {
-            return _context.Room.Any(e => e.RoomId == id);
+            return _context.Rooms.Any(e => e.RoomId == id);
             
         }
     }

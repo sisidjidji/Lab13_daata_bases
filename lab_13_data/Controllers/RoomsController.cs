@@ -25,7 +25,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Rooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRoom()
+        public async Task<ActionResult<IEnumerable<Rooms>>> GetRoom()
         {
             return Ok(await roomRepository.GetAllRooms());
           
@@ -33,7 +33,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public async Task<ActionResult<Rooms>> GetRoom(int id)
         {
             
             var room = await roomRepository.GetOneRoom(id);
@@ -50,7 +50,7 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoom(int id, Room room)
+        public async Task<IActionResult> PutRoom(int id, Rooms room)
         {
             if (id != room.RoomId)
             {
@@ -83,7 +83,7 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Room>> PostRoom(Room room)
+        public async Task<ActionResult<Rooms>> PostRoom(Rooms room)
         {
             await roomRepository.SaveNewRoom(room);
 
@@ -92,7 +92,7 @@ namespace lab_13_data.Controllers
 
         // DELETE: api/Rooms/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Room>> DeleteRoom(int id)
+        public async Task<ActionResult<Rooms>> DeleteRoom(int id)
         {
             
             var room= await roomRepository.DeleteRoom(id);

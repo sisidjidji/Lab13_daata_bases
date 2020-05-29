@@ -8,11 +8,11 @@ namespace lab_13_data.Data.Repositories
 {
     public interface IRoomRepository
     {
-        Task<IEnumerable<Room>> GetAllRooms();
-        Task<Room> GetOneRoom(long id);
+        Task<IEnumerable<Rooms>> GetAllRooms();
+        Task<Rooms> GetOneRoom(long id);
 
-        Task<bool> UpdateRoom(long id ,Room room);
-        Task<Room> SaveNewRoom(Room room);
-        Task<Room> DeleteRoom(long id);
+        Task<bool> UpdateRoom(long id ,Rooms room);
+        Task<Rooms> SaveNewRoom(Rooms room);
+        Task<Rooms> DeleteRoom(long id);
     }
 }

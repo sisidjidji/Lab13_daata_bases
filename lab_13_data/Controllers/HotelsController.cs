@@ -25,7 +25,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Hotels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
+        public async Task<ActionResult<IEnumerable<HotelsDTO>>> GetHotels()
         {
             return Ok(await hotelRepository.GetAllHotels());
         
@@ -33,7 +33,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hotel>> GetHotel(int id)
+        public async Task<ActionResult<HotelsDTO>> GetHotel(int id)
         {
           
             var hotel = await hotelRepository.GetOneHotel(id);
@@ -50,7 +50,7 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(int id, Hotel hotel)
+        public async Task<IActionResult> PutHotel(int id, HotelsDTO hotel)
         {
             if (id != hotel.Id)
             {
@@ -73,7 +73,7 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
+        public async Task<ActionResult<HotelsDTO>> PostHotel(HotelsDTO hotel)
         {
 
             await hotelRepository.SaveNewHotel(hotel);
@@ -84,7 +84,7 @@ namespace lab_13_data.Controllers
 
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Hotel>> DeleteHotel(int id)
+        public async Task<ActionResult<HotelsDTO>> DeleteHotel(int id)
         {
             var hotel = await hotelRepository.DeleteHotel(id);
            
