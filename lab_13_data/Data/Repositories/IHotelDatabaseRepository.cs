@@ -9,11 +9,11 @@ using lab_13_data.Models;
 
 namespace lab_13_data.Data.Repositories
 {
-    public class HotelDatabaseRepository : IHotelRepository
+    public class IHotelDatabaseRepository : IHotelRepository
     {
         private readonly HotelDbContext _context;
 
-        public HotelDatabaseRepository(HotelDbContext context)
+        public IHotelDatabaseRepository(HotelDbContext context)
         {
             _context = context;
         }

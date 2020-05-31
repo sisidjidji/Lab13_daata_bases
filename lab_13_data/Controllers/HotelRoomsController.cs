@@ -7,68 +7,54 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using lab_13_data.Data;
 using lab_13_data.Models;
+using lab_13_data.Data.Repositories;
+using lab_13_data.Models.DTO_s;
 
 namespace lab_13_data.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+   [Route("api /Hotels/{HotelId}/Rooms")]
+   [ApiController]
     public class HotelRoomsController : ControllerBase
     {
-        private readonly HotelDbContext _context;
+        IHotelRoomRepository hotelRoomRepository;
 
-        public HotelRoomsController(HotelDbContext context)
+        public HotelRoomsController(IHotelRoomRepository hotelRoomrepository)
         {
-            _context = context;
+            this.hotelRoomRepository = hotelRoomrepository;
         }
 
         // GET: api/HotelRooms
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HotelRoom>>> GetHotelRoom()
+        public async Task<ActionResult<IEnumerable<HotelRoomDTO>>> GetHotelRoom(int hotelId)
         {
-            return await _context.HotelRoom.ToListAsync();
+            return  Ok(await hotelRoomRepository.GetHotelRooms(hotelId));
         }
 
         // GET: api/HotelRooms/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<HotelRoom>> GetHotelRoom(int id)
+        [HttpGet("{RoomNumber}")]
+        public async Task<ActionResult<HotelRoom>> GetoneHotelRoom(int hotelId , int roomNumber)
         {
-            var hotelRoom = await _context.HotelRoom.FindAsync(id);
+            return Ok(await hotelRoomRepository.GetHotelRoomByNumber(hotelId, roomNumber));
 
-            if (hotelRoom == null)
-            {
-                return NotFound();
-            }
-
-            return hotelRoom;
+           
         }
 
         // PUT: api/HotelRooms/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotelRoom(int id, HotelRoom hotelRoom)
+        public async Task<IActionResult> UpdateHotelRoom(int id , HotelRoom hotelRoom)
         {
-            if (id != hotelRoom.HotelId)
+            if (id != hotelRoom.Number)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hotelRoom).State = EntityState.Modified;
+            bool updateComplete = await hotelRoomRepository.UpdateHotelRooms(id, hotelRoom);
 
-            try
+            if (!updateComplete)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!HotelRoomExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
 
             return NoContent();

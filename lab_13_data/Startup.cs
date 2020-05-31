@@ -32,7 +32,7 @@ namespace lab_13_data
                 options.UseSqlServer(connectionString);
             });
 
-            services.AddTransient<IHotelRepository, HotelDatabaseRepository>();
+            services.AddTransient<IHotelRepository, IHotelDatabaseRepository>();
              services.AddTransient<IRoomRepository, RoomDatabaseRepository>();
              services.AddTransient<IAmenitiesRepository, AmenitiesDatabaseRepository>();
 
