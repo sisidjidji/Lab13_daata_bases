@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using lab_13_data.Data;
 using lab_13_data.Models;
 using lab_13_data.Data.Repositories;
+using lab_13_data.Models.DTO_s;
 
 namespace lab_13_data.Controllers
 {
@@ -25,7 +26,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Hotels
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
+        public async Task<ActionResult<IEnumerable<HotelDTO>>> GetHotels()
         {
             return Ok(await hotelRepository.GetAllHotels());
         
@@ -33,10 +34,10 @@ namespace lab_13_data.Controllers
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Hotel>> GetHotel(int id)
+        public async Task<ActionResult<HotelDTO>> GetHotel(int id)
         {
           
-            var hotel = await hotelRepository.GetOneHotel(id);
+            HotelDTO hotel = await hotelRepository.GetOneHotel(id);
 
             if (hotel == null)
             {
@@ -50,7 +51,7 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(int id, Hotel hotel)
+        public async Task<IActionResult> PutHotel(int id, Hotels hotel)
         {
             if (id != hotel.Id)
             {
@@ -73,18 +74,18 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
+        public async Task<ActionResult<HotelDTO>> PostHotel(Hotels hotel)
         {
 
             await hotelRepository.SaveNewHotel(hotel);
          
 
-            return CreatedAtAction("GetHotel", new { id = hotel.Id }, hotel);
+            return CreatedAtAction("GetHotel", new { id = hotel.Id}, hotel);
         }
 
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Hotel>> DeleteHotel(int id)
+        public async Task<ActionResult<HotelDTO>> DeleteHotel(int id)
         {
             var hotel = await hotelRepository.DeleteHotel(id);
            

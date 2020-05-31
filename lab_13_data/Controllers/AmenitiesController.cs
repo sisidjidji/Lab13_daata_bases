@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using lab_13_data.Data;
 using lab_13_data.Models;
 using lab_13_data.Data.Repositories;
+using lab_13_data.Models.DTO_s;
 
 namespace lab_13_data.Controllers
 {
@@ -15,28 +16,28 @@ namespace lab_13_data.Controllers
     [ApiController]
     public class AmenitiesController : ControllerBase
     {
-        // private readonly HotelDbContext _context;
+        
         IAmenitiesRepository amenitiesRepository;
 
         public AmenitiesController(IAmenitiesRepository amenitiesRepository)
         {
             this.amenitiesRepository = amenitiesRepository;
-            //_context = context;
+           
         }
 
         // GET: api/Amenities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Amenities>>> GetAmenities()
+        public async Task<ActionResult<IEnumerable<AmenitiesDTO>>> GetAmenities()
         {
-            // return await _context.Amenities.ToListAsync();
-            return Ok( await amenitiesRepository.GetAllAmenities());
+
+            return Ok(await amenitiesRepository.GetAllAmenities());
         }
 
         // GET: api/Amenities/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Amenities>> GetAmenities(int id)
+        public async Task<ActionResult<AmenitiesDTO>> GetAmenities(int id)
         {
-            //var amenities = await _context.Amenities.FindAsync(id);
+         
             var amenities = await amenitiesRepository.GetOneAmenitie(id);
 
 
@@ -69,23 +70,7 @@ namespace lab_13_data.Controllers
             }
 
 
-            //_context.Entry(amenities).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!AmenitiesExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+            
 
             return NoContent();
         }
@@ -94,10 +79,9 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Amenities>> PostAmenities(Amenities amenities)
+        public async Task<ActionResult<AmenitiesDTO>> PostAmenities(Amenities amenities)
         {
-            //_context.Amenities.Add(amenities);
-            //await _context.SaveChangesAsync();
+           
 
             await amenitiesRepository.SaveNewAmenitie(amenities);
 
@@ -106,9 +90,9 @@ namespace lab_13_data.Controllers
 
         // DELETE: api/Amenities/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Amenities>> DeleteAmenities(int id)
+        public async Task<ActionResult<AmenitiesDTO>> DeleteAmenities(int id)
         {
-            // var amenities = await _context.Amenities.FindAsync(id);
+            
 
             var amenities = await amenitiesRepository.DeleteAmenitie(id);
             if (amenities == null)
@@ -116,15 +100,14 @@ namespace lab_13_data.Controllers
                 return NotFound();
             }
 
-            //_context.Amenities.Remove(amenities);
-            //await _context.SaveChangesAsync();
+           
 
             return amenities;
         }
 
         private bool AmenitiesExists(int id)
         {
-            //return _context.Amenities.Any(e => e.Id == id);
+            
             return false;
         }
     }

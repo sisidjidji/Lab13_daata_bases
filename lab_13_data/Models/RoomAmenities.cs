@@ -10,6 +10,6 @@ namespace lab_13_data.Models
         public int  AmenitiesId { get; set; }
         public int RoomId { get; set; }
         public Amenities Amenities { get; set; }
-        public Room Room { get; set; }
+        public Rooms Room { get; set; }
     }
 }

@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace lab_13_data.Models
 {
-    public class Room
+    public class Rooms
     {
-        public int RoomId { get; set; }
+        public int Id { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string RoomName { get; set; }
         public RoomLayout Layout { get; set; }
-
-
-
+        public List<RoomAmenities> Amenities { get; set; }
 
     }
 

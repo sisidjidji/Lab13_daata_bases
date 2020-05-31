@@ -1,4 +1,5 @@
 ﻿using lab_13_data.Models;
+using lab_13_data.Models.DTO_s;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,12 @@ namespace lab_13_data.Data.Repositories
 {
     public interface IRoomRepository
     {
-        Task<IEnumerable<Room>> GetAllRooms();
-        Task<Room> GetOneRoom(long id);
-
-        Task<bool> UpdateRoom(long id ,Room room);
-        Task<Room> SaveNewRoom(Room room);
-        Task<Room> DeleteRoom(long id);
+        Task<IEnumerable<RoomDTO>> GetAllRooms();
+        Task<RoomDTO> GetOneRoom(int id);
+        Task<bool> UpdateRoom(int id ,Rooms room);
+        Task<RoomDTO> SaveNewRoom(Rooms room);
+        Task<RoomDTO> DeleteRoom(int id);
+        Task AddAmenityToRoom(int amenityId, int roomId);
+        Task RemoveAmenityFromRoom(int amenityId, int roomId);
     }
 }

@@ -4,18 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace lab_13_data.Models
+namespace lab_13_data.Models.DTO_s
 {
-    public class Hotel
+    public class AmenitiesDTO
+
     {
         public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
-        public char StreetName {get;set;}
-        public char City { get; set; }
-        public char State { get; set; }
-        public char Country { get; set; }
-        public char Phone { get; set; }
-
     }
 }
