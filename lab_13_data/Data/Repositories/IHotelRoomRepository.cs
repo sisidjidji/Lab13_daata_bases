@@ -10,20 +10,14 @@ namespace lab_13_data.Data.Repositories
     public interface IHotelRoomRepository
     {
        
-            //POST
+         
             Task<HotelRoomDTO> CreateHotelRoom(int hotelId, HotelRoom hotelRoomData);
-
-            //GET
 
             Task<HotelRoomDTO> GetHotelRoomByNumber(int roomNumber, int hotelId);
             Task<IEnumerable<HotelRoomDTO>> GetHotelRooms(int hotelId);
 
-
-            //UPDATE
             Task<bool> UpdateHotelRooms(int hotelId, HotelRoom hotelRoomData);
 
-
-            // DELETE
             Task<HotelRoomDTO> RemoveHotelRoom(int roomNumber, int hotelId);   
 
     }

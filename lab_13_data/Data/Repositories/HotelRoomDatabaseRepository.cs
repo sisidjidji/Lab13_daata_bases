@@ -84,14 +84,42 @@ namespace lab_13_data.Data.Repositories
             return hotelrooms;
         }
 
-        public Task<HotelRoomDTO> RemoveHotelRoom(int roomNumber, int hotelId)
+        public async Task<HotelRoomDTO> RemoveHotelRoom(int roomNumber, int hotelId)
         {
-            
+            var hotelRoom = await _context.HotelRoom
+                 .FirstOrDefaultAsync(hr => hr.HotelId == hotelId && hr.Number == roomNumber);
+
+            if (hotelRoom == null)
+                return null;
+
+            var hotelRoomToReturn = await GetHotelRoomByNumber(roomNumber, hotelId);
+
+            _context.HotelRoom.Remove(hotelRoom);
+            await _context.SaveChangesAsync();
+
+            return hotelRoomToReturn;
+
         }
 
-        public Task<bool> UpdateHotelRooms(int hotelId, HotelRoom hotelRoomData)
+        public async Task<bool> UpdateHotelRooms(int hotelId, HotelRoom hotelRoom)
         {
-            throw new NotImplementedException();
+            var hotelRooms = await _context.HotelRoom
+                .FirstOrDefaultAsync(hr => hr.HotelId == hotelId && hr.Number == hotelRoom.Number);
+
+            if (hotelRoom == null)
+            {
+                return false;
+            }
+
+            hotelRoom.Rate = hotelRoom.Rate;
+            hotelRoom.RoomID = hotelRoom.RoomID;
+
+            _context.Entry(hotelRoom).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return true;
+           
         }
     }
 }
