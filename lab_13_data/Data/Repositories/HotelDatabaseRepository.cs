@@ -17,7 +17,7 @@ namespace lab_13_data.Data.Repositories
         {
             _context = context;
         }
-        public async Task<HotelDTO> DeleteHotel(long id)
+        public async Task<HotelDTO> DeleteHotel(int id)
         {
             var hotel = await _context.Hotels.FindAsync(id);
            
@@ -42,31 +42,46 @@ namespace lab_13_data.Data.Repositories
             var hotels = await _context.Hotels
 
                 .Select(hotel => new HotelDTO
-                 {
-                     ID = hotel.Id,
-                     Name = hotel.Name,
-                     StreetAddress = hotel.StreetName,
-                     City = hotel.City,
-                     State = hotel.State,
-                     Phone = hotel.Phone,
+                {
+                    ID = hotel.Id,
+                    Name = hotel.Name,
+                    StreetAddress = hotel.StreetName,
+                    City = hotel.City,
+                    State = hotel.State,
+                    Phone = hotel.Phone,
 
 
-                     HotelRooms= hotel.Rooms
+                    HotelRooms = hotel.Rooms
                         .Select(e => new HotelRoomDTO
                         {
                             HotelID = e.HotelId,
                             RoomNumber = e.Number,
-                            Rate=e.Rate,
-                            PetFriendly=e.PetFrindly
+                            Rate = e.Rate,
+                            PetFriendly = e.PetFrindly,
+                            RoomID = e.RoomID,
 
-                        }).ToList(),
+                            Room = new RoomDTO
+                            {
+                                ID = e.Room.Id,
+                                Name = e.Room.RoomName,
+                                Layout = e.Room.Layout.ToString(),
+                                AmenitiesList = e.Room.Amenities
+                                .Select(am => new AmenitiesDTO
+                                {
+                                    Id = am.Amenities.Id,
+                                    Name = am.Amenities.Name
+                                }).ToList()
+                            }
 
-                 }).ToListAsync();
+
+                        }).ToList()
+
+        }).ToListAsync();
 
             return hotels;
         }
 
-        public async Task<HotelDTO> GetOneHotel(long id)
+        public async Task<HotelDTO> GetOneHotel(int id)
         {
                 var hotel=await _context.Hotels
 
@@ -86,12 +101,26 @@ namespace lab_13_data.Data.Repositories
                             HotelID = e.HotelId,
                             RoomNumber = e.Number,
                             Rate = e.Rate,
-                            PetFriendly = e.PetFrindly
+                            PetFriendly = e.PetFrindly,
+                            RoomID = e.RoomID,
 
-                        }).ToList(),
-              })
+                            Room = new RoomDTO
+                            {
+                                ID = e.Room.Id,
+                                Name = e.Room.RoomName,
+                                Layout = e.Room.Layout.ToString(),
+                                AmenitiesList = e.Room.Amenities                               
+                                .Select(am => new AmenitiesDTO
+                               {
+                                   Id = am.Amenities.Id,
+                                   Name = am.Amenities.Name
+                               }).ToList()
+                            }
 
-                .FirstOrDefaultAsync(hotel => hotel.ID == id);
+                        }).ToList()
+
+              
+              }).FirstOrDefaultAsync(hotel => hotel.ID == id);
 
             return hotel;
         }
@@ -105,7 +134,7 @@ namespace lab_13_data.Data.Repositories
 
    
 
-        public async Task<bool> UpdateHotel(long id, Hotels hotel)
+        public async Task<bool> UpdateHotel(int id, Hotels hotel)
         {
             _context.Entry(hotel).State = EntityState.Modified;
 
@@ -129,7 +158,7 @@ namespace lab_13_data.Data.Repositories
 
        
 
-        private bool HotelExists(long id)
+        private bool HotelExists(int id)
         {
             return _context.Hotels.Any(e => e.Id == id);
 

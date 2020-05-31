@@ -17,7 +17,7 @@ namespace lab_13_data.Data.Repositories
             _context = context;
         }
 
-        public async Task<AmenitiesDTO> DeleteAmenitie(long id)
+        public async Task<AmenitiesDTO> DeleteAmenitie(int id)
         {
             var amenitie = await _context.Amenities.FindAsync(id);
 
@@ -50,7 +50,7 @@ namespace lab_13_data.Data.Repositories
 
         }
 
-        public async Task<AmenitiesDTO> GetOneAmenitie(long id)
+        public async Task<AmenitiesDTO> GetOneAmenitie(int id)
         {
             var amenities = await _context.Amenities
             .Select(amenities => new AmenitiesDTO
@@ -73,7 +73,7 @@ namespace lab_13_data.Data.Repositories
 
         }
 
-        public async Task<bool> UpdateAmenitie(long id, Amenities amenities)
+        public async Task<bool> UpdateAmenitie(int id, Amenities amenities)
         {
             _context.Entry(amenities).State = EntityState.Modified;
 
@@ -94,7 +94,7 @@ namespace lab_13_data.Data.Repositories
                 }
             }
         }
-        private bool AmenitiesExists(long  id)
+        private bool AmenitiesExists(int  id)
         {
             return _context.Amenities.Any(e => e.Id == id);
            

@@ -10,14 +10,14 @@ namespace lab_13_data.Data.Repositories
 {
     public class RoomDatabaseRepository : IRoomRepository
     {
-         private readonly HotelDbContext _context;
+        private readonly HotelDbContext _context;
         public RoomDatabaseRepository(HotelDbContext context)
         {
             _context = context;
         }
 
-        public async Task<RoomDTO> DeleteRoom(long id)
-        { 
+        public async Task<RoomDTO> DeleteRoom(int id)
+        {
             var room = await _context.Rooms.FindAsync(id);
             if (room == null)
             {
@@ -42,8 +42,8 @@ namespace lab_13_data.Data.Repositories
                     AmenitiesList = room.Amenities
                     .Select(amenitie => new AmenitiesDTO
                     {
-                        Id = amenitie.Id,
-                        Name = amenitie.Name
+                        Id = amenitie.Amenities.Id,
+                        Name = amenitie.Amenities.Name
                     }).ToList()
 
                 }).ToListAsync();
@@ -51,7 +51,7 @@ namespace lab_13_data.Data.Repositories
             return room;
         }
 
-        public async Task<RoomDTO> GetOneRoom(long id)
+        public async Task<RoomDTO> GetOneRoom(int id)
         {
             var room = await _context.Rooms
                 .Select(room => new RoomDTO
@@ -63,9 +63,9 @@ namespace lab_13_data.Data.Repositories
                     AmenitiesList = room.Amenities
                     .Select(amenitie => new AmenitiesDTO
                     {
-                        Id = amenitie.Id,
-                        Name = amenitie.Name
-                    
+                        Id = amenitie.Amenities.Id,
+                        Name = amenitie.Amenities.Name
+
                     }).ToList()
 
                 }).FirstOrDefaultAsync(room => room.ID == id);
@@ -74,7 +74,7 @@ namespace lab_13_data.Data.Repositories
 
         }
 
-        public async  Task<RoomDTO> SaveNewRoom(Rooms room)
+        public async Task<RoomDTO> SaveNewRoom(Rooms room)
         {
             _context.Rooms.Add(room);
             await _context.SaveChangesAsync();
@@ -82,7 +82,7 @@ namespace lab_13_data.Data.Repositories
 
         }
 
-        public async Task<bool> UpdateRoom(long id, Rooms room)
+        public async Task<bool> UpdateRoom(int id, Rooms room)
         {
             _context.Entry(room).State = EntityState.Modified;
 
@@ -106,7 +106,31 @@ namespace lab_13_data.Data.Repositories
         private bool RoomExists(long id)
         {
             return _context.Rooms.Any(e => e.Id == id);
-            
+        }
+
+        public async Task AddAmenityToRoom(int amenityId, int roomId)
+        {
+            var roomAmenity = new RoomAmenities
+            {
+                AmenitiesId = amenityId,
+                RoomId = roomId,
+            };
+            _context.RoomAmenities.Add(roomAmenity);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveAmenityFromRoom(int amenityId, int roomId)
+        {
+            var roomAmenity = await _context.RoomAmenities
+                .Where(ra => ra.AmenitiesId == amenityId)
+                .Where(ra => ra.RoomId == roomId)
+                .FirstOrDefaultAsync();
+
+            if (roomAmenity != null)
+            {
+                _context.RoomAmenities.Remove(roomAmenity);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

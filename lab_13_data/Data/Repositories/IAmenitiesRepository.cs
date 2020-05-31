@@ -10,11 +10,10 @@ namespace lab_13_data.Data.Repositories
     public interface IAmenitiesRepository
     {
         Task<IEnumerable<AmenitiesDTO>> GetAllAmenities();
-        Task<AmenitiesDTO> GetOneAmenitie(long id);
-
-        Task<bool> UpdateAmenitie(long id ,Amenities amenities);
+        Task<AmenitiesDTO> GetOneAmenitie(int id);
+        Task<bool> UpdateAmenitie(int id ,Amenities amenities);
         Task<AmenitiesDTO> SaveNewAmenitie(Amenities amenities);
-        Task<AmenitiesDTO> DeleteAmenitie(long id);
+        Task<AmenitiesDTO> DeleteAmenitie(int id);
 
     }
 }

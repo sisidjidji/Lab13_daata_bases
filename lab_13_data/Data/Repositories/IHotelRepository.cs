@@ -10,11 +10,11 @@ namespace lab_13_data.Data.Repositories
    public interface IHotelRepository
     {
         Task<IEnumerable<HotelDTO>> GetAllHotels();
-        Task<HotelDTO> GetOneHotel(long id);
+        Task<HotelDTO> GetOneHotel(int id);
 
-        Task<bool> UpdateHotel(long id ,Hotels hotel);
+        Task<bool> UpdateHotel(int id ,Hotels hotel);
         Task<HotelDTO> SaveNewHotel(Hotels hotel);
-        Task<HotelDTO> DeleteHotel(long id);
+        Task<HotelDTO> DeleteHotel(int id);
 
 
 

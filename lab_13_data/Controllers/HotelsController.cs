@@ -34,7 +34,7 @@ namespace lab_13_data.Controllers
 
         // GET: api/Hotels/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<HotelDTO>> GetHotel(long id)
+        public async Task<ActionResult<HotelDTO>> GetHotel(int id)
         {
           
             HotelDTO hotel = await hotelRepository.GetOneHotel(id);
@@ -51,7 +51,7 @@ namespace lab_13_data.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHotel(long id, Hotels hotel)
+        public async Task<IActionResult> PutHotel(int id, Hotels hotel)
         {
             if (id != hotel.Id)
             {
@@ -85,7 +85,7 @@ namespace lab_13_data.Controllers
 
         // DELETE: api/Hotels/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<HotelDTO>> DeleteHotel(long id)
+        public async Task<ActionResult<HotelDTO>> DeleteHotel(int id)
         {
             var hotel = await hotelRepository.DeleteHotel(id);
            

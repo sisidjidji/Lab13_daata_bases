@@ -16,7 +16,7 @@ namespace lab_13_data.Controllers
     [ApiController]
     public class RoomsController : ControllerBase
     {
-        
+
         IRoomRepository roomRepository;
 
         public RoomsController(IRoomRepository roomRepository)
@@ -29,14 +29,14 @@ namespace lab_13_data.Controllers
         public async Task<ActionResult<IEnumerable<RoomDTO>>> GetRoom()
         {
             return Ok(await roomRepository.GetAllRooms());
-          
+
         }
 
         // GET: api/Rooms/5
         [HttpGet("{id}")]
         public async Task<ActionResult<RoomDTO>> GetRoom(int id)
         {
-            
+
             var room = await roomRepository.GetOneRoom(id);
 
             if (room == null)
@@ -58,26 +58,9 @@ namespace lab_13_data.Controllers
                 return BadRequest();
             }
 
-            //_context.Entry(room).State = EntityState.Modified;
-            await roomRepository.UpdateRoom(id,room);
+            await roomRepository.UpdateRoom(id, room);
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!RoomExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-           return NoContent();
+            return NoContent();
         }
 
         // POST: api/Rooms
@@ -95,23 +78,40 @@ namespace lab_13_data.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<RoomDTO>> DeleteRoom(int id)
         {
-            
-            var room= await roomRepository.DeleteRoom(id);
+
+            var room = await roomRepository.DeleteRoom(id);
 
             if (room == null)
             {
                 return NotFound();
             }
 
-            
+
 
             return room;
         }
 
         private bool RoomExists(int id)
         {
-            //return _context.Room.Any(e => e.RoomId == id);
+            
             return false;
+        }
+
+
+        //Post:api/Room/7/Amenity/2
+        [HttpPost("{roomId}/Amenities/{amenityId}")]
+        public async Task<ActionResult> AddRoomAmenity(int roomId, int amenityId)
+        {
+            await roomRepository.AddAmenityToRoom(amenityId, roomId);
+            return NoContent();
+        }
+
+        // DELETE: api/Rooms/5/Amenities/17
+        [HttpDelete("{roomId}/Amenities/{amenityId}")]
+        public async Task<ActionResult> RemoveRoomAmenity(int roomId, int amenityId)
+        {
+            await roomRepository.RemoveAmenityFromRoom(amenityId, roomId);
+            return NoContent();
         }
     }
 }

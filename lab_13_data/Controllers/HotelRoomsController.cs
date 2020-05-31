@@ -116,7 +116,7 @@ namespace lab_13_data.Controllers
             return hotelRoom;
         }
 
-        private bool HotelRoomExists(int id)
+        private bool HotelRoomExists(long id)
         {
             return _context.HotelRoom.Any(e => e.HotelId == id);
         }

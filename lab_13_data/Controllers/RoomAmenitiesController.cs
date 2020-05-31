@@ -116,7 +116,7 @@ namespace lab_13_data.Controllers
             return roomAmenities;
         }
 
-        private bool RoomAmenitiesExists(int id)
+        private bool RoomAmenitiesExists(long id)
         {
             return _context.RoomAmenities.Any(e => e.AmenitiesId == id);
         }

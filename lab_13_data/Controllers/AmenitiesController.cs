@@ -29,8 +29,8 @@ namespace lab_13_data.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AmenitiesDTO>>> GetAmenities()
         {
-            
-            return Ok( await amenitiesRepository.GetAllAmenities());
+
+            return Ok(await amenitiesRepository.GetAllAmenities());
         }
 
         // GET: api/Amenities/5

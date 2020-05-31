@@ -12,7 +12,7 @@ namespace lab_13_data.Models
         [Required]
         public string RoomName { get; set; }
         public RoomLayout Layout { get; set; }
-        public List<Amenities> Amenities { get; set; }
+        public List<RoomAmenities> Amenities { get; set; }
 
     }
 

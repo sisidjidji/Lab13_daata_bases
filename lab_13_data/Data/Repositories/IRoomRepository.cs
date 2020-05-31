@@ -10,10 +10,11 @@ namespace lab_13_data.Data.Repositories
     public interface IRoomRepository
     {
         Task<IEnumerable<RoomDTO>> GetAllRooms();
-        Task<RoomDTO> GetOneRoom(long id);
-
-        Task<bool> UpdateRoom(long id ,Rooms room);
+        Task<RoomDTO> GetOneRoom(int id);
+        Task<bool> UpdateRoom(int id ,Rooms room);
         Task<RoomDTO> SaveNewRoom(Rooms room);
-        Task<RoomDTO> DeleteRoom(long id);
+        Task<RoomDTO> DeleteRoom(int id);
+        Task AddAmenityToRoom(int amenityId, int roomId);
+        Task RemoveAmenityFromRoom(int amenityId, int roomId);
     }
 }

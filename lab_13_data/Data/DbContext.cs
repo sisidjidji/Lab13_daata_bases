@@ -22,7 +22,7 @@ namespace lab_13_data.Data
                 .HasKey(hotelRoom => new
                 {
                     hotelRoom.HotelId,
-                    hotelRoom.Number,
+                    hotelRoom.Number
                 }
                 );
 
@@ -40,7 +40,7 @@ namespace lab_13_data.Data
                .HasData(
                new Hotels {Id=1 , Name= "mercure", StreetName= "progress st" , City="north liberty"},
                new Hotels { Id = 2, Name = "hilton", StreetName = "marylyn dr ", City = "north liberty" },
-               new Hotels { Id = 3, Name = "azure", StreetName = "H st", City = "north liberty" }
+               new Hotels { Id = 3, Name = "azure", StreetName = "H st", City = "north liberty"}
 
                );
 
@@ -63,19 +63,19 @@ namespace lab_13_data.Data
 
             modelBuilder.Entity<Rooms>()
                .HasData(
-               new Rooms{  Id = 1,  RoomName = "red"},
-               new Rooms { Id = 2, RoomName = "bleu" },
-               new Rooms { Id = 3, RoomName = "pink" },
+               new Rooms{  Id = 1,  RoomName = "red" },
+               new Rooms { Id = 2, RoomName = "bleu"},
+               new Rooms { Id = 3, RoomName = "pink"},
                new Rooms { Id = 4, RoomName = "purple"}
 
                );
 
             modelBuilder.Entity<HotelRoom>()
                .HasData(
-               new HotelRoom { HotelId =1 , RoomID= 1,  Number=250,Rate=9.5m, PetFrindly=false },
-               new HotelRoom { HotelId = 1, RoomID = 2, Number = 20, Rate = 5m, PetFrindly = false },
-               new HotelRoom { HotelId = 1, RoomID = 3, Number= 300, Rate =10m ,PetFrindly = false },
-               new HotelRoom { HotelId = 2, RoomID = 4, Number = 250, Rate = 9.5m, PetFrindly = true }
+               new HotelRoom { HotelId =1 , RoomID=1,  Number=250,Rate=9.5m, PetFrindly=false },
+               new HotelRoom { HotelId = 1, RoomID =2, Number = 20, Rate = 5m, PetFrindly = false },
+               new HotelRoom { HotelId = 1, RoomID =3, Number= 300, Rate =10m ,PetFrindly = false },
+               new HotelRoom { HotelId = 2, RoomID =4, Number = 250, Rate = 9.5m, PetFrindly = true }
 
                );
         }
